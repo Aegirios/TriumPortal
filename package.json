@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "validate": "node scripts/validate-meta.js",
+    "collect": "node scripts/collect-publications.js",
+    "build": "npm run validate && npm run collect"
+  }
+}

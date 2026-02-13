@@ -1,0 +1,12 @@
+{
+  "id": "ADM-AEG260207TPC",
+  "title": "Test de Placement - Concept",
+  "type": "Document administratif",
+  "status": "Adopté",
+  "version": "1.0",
+  "published_at": "2026-02-07",
+  "authors": ["Aegirios"],
+  "committee": ["Comité interne du Haut-Consulat"],
+  "summary": "Texte résumant le concept du Test de placement et ses enjeux.",
+  "pdf": "ADM-AEG260207TPC.pdf"
+}
