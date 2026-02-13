@@ -1,0 +1,19 @@
+---
+import publications from "../../data/publications.json";
+const { id } = Astro.params;
+const doc = publications.find(p => p.id === id);
+if (!doc) throw new Error("Document introuvable");
+---
+
+<h1>{doc.title}</h1>
+
+<p><strong>Référence :</strong> {doc.id}</p>
+<p><strong>Statut :</strong> {doc.status}</p>
+<p><strong>Version :</strong> {doc.version}</p>
+<p><strong>Auteurs :</strong> {doc.authors?.join(", ")}</p>
+
+<p>{doc.summary}</p>
+
+<p>
+  <a href={doc.pdf}>Télécharger le document officiel (PDF)</a>
+</p>
