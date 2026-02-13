@@ -15,7 +15,7 @@ const { publication } = Astro.props;
   <head>
     <meta charset="utf-8">
     <title>{publication.title} — TriumPortal</title>
-    <link rel="stylesheet" href="/TriumPortal/src/styles/globals.css">
+    <link rel="stylesheet" href="/TriumPortal/styles/globals.css">
   </head>
   <body>
 
@@ -38,8 +38,8 @@ const { publication } = Astro.props;
     <section>
       <h2>Document officiel</h2>
       <p>
-        <a href={publication.pdf} target="_blank">
-          Télécharger le PDF
+        <a href={new URL('/pdf/ADM-AEG260207TPC.pdf', Astro.site).pathname} target="_blank">
+            Télécharger le PDF
         </a>
       </p>
     </section>
