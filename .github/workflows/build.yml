@@ -25,4 +25,8 @@ jobs:
         run: npm run build
 
       - name: Build site
-        run: npm run build --workspace site
+        run: |
+          cd site
+          npm install
+          npm run build
+
