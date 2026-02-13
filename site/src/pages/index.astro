@@ -1,65 +1,28 @@
 ---
 import publications from "../data/publications.json";
-
-const corpus = publications.filter(p => p.type === "corpus");
-const notes = publications.filter(p => p.type === "notes");
-const rapports = publications.filter(p => p.type === "rapports");
 ---
 
 <html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <title>TriumPortal — Publications institutionnelles</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>TriumPortal — Publications</title>
+    <link rel="stylesheet" href="/TriumPortal/src/styles/globals.css">
+  </head>
+  <body>
+    <h1>TriumPortal</h1>
+    <p>Plateforme institutionnelle du Triumvirat.</p>
 
-<h1>TriumPortal</h1>
-
-<p>
-Plateforme de publication institutionnelle du Triumvirat.
-Les documents publiés ici engagent le Triumvirat en tant qu’entité.
-</p>
-
-<section>
-  <h2>Corpus</h2>
-  <ul>
-    {corpus.map(doc => (
-      <li>
-        <strong>{doc.id}</strong> — {doc.title}
-        <br />
-        <a href={doc.pdf}>Télécharger le PDF</a>
-		<a href={`/publications/${doc.id}`}>Consulter</a>
-      </li>
-    ))}
-  </ul>
-</section>
-
-<section>
-  <h2>Notes</h2>
-  <ul>
-    {notes.map(doc => (
-      <li>
-        <strong>{doc.id}</strong> — {doc.title}
-        <a href={doc.pdf}>PDF</a>
-		<a href={`/publications/${doc.id}`}>Consulter</a>
-
-      </li>
-    ))}
-  </ul>
-</section>
-
-<section>
-  <h2>Rapports</h2>
-  <ul>
-    {rapports.map(doc => (
-      <li>
-        <strong>{doc.id}</strong> — {doc.title}
-        <a href={doc.pdf}>PDF</a>
-		<a href={`/publications/${doc.id}`}>Consulter</a>
-      </li>
-    ))}
-  </ul>
-</section>
-
-</body>
+    <section>
+      <h2>Publications</h2>
+      <ul>
+        {publications.map(pub => (
+          <li>
+            <strong>{pub.id}</strong> — {pub.title}<br>
+            <small>{pub.publishdate} | {pub.authors?.join(", ")}</small><br>
+            <a href={`/TriumPortal/publications/${pub.id}/index.html`}>Voir la publication</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </body>
 </html>

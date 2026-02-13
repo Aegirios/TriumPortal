@@ -1,27 +1,26 @@
----
-import publications from "../../data/publications.json";
+const fs = require('fs');
+const publications = require('./publications.json');
 
-export function getStaticPaths() {
-  return publications.map(pub => ({
-    params: { id: pub.id },
-    props: { publication: pub }
-  }));
-}
-
-const { publication } = Astro.props;
----
-
+publications.forEach(pub => {
+  const html = `
 <html>
   <head>
-    <title>{publication.title}</title>
+    <title>${pub.title}</title>
+    <link rel="stylesheet" href="/TriumPortal/src/styles/globals.css">
   </head>
   <body>
-    <h1>{publication.title}</h1>
-
+    <h1>${pub.title}</h1>
     <p>
-      <a href={publication.pdf} target="_blank">
-        Télécharger le PDF
-      </a>
+      <strong>Référence:</strong> ${pub.id}<br>
+      <strong>Date:</strong> ${pub.publishdate}<br>
+      <strong>Auteurs:</strong> ${pub.authors.join(", ")}
     </p>
+    <p><a href="${pub.pdf}" target="_blank">Télécharger le PDF</a></p>
+    <p><a href="/TriumPortal/">← Retour à l'accueil</a></p>
   </body>
 </html>
+  `;
+  const dir = `site/dist/publications/${pub.id}`;
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(`${dir}/index.html`, html);
+});
