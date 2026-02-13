@@ -1,26 +1,56 @@
-const fs = require('fs');
-const publications = require('./publications.json');
+---
+import publications from "../../data/publications.json";
 
-publications.forEach(pub => {
-  const html = `
-<html>
+/* Pour générer toutes les pages statiques */
+export function getStaticPaths() {
+  return publications.map(pub => ({
+    params: { id: pub.id },
+    props: { publication: pub }
+  }));
+}
+
+const { publication } = Astro.props;
+---
+<html lang="fr">
   <head>
-    <title>${pub.title}</title>
+    <meta charset="utf-8">
+    <title>{publication.title} — TriumPortal</title>
     <link rel="stylesheet" href="/TriumPortal/src/styles/globals.css">
   </head>
   <body>
-    <h1>${pub.title}</h1>
+
+    <h1>{publication.title}</h1>
+
     <p>
-      <strong>Référence:</strong> ${pub.id}<br>
-      <strong>Date:</strong> ${pub.publishdate}<br>
-      <strong>Auteurs:</strong> ${pub.authors.join(", ")}
+      <strong>Référence :</strong> {publication.id}<br>
+      <strong>Date :</strong> {publication.publishdate}<br>
+      <strong>Auteurs :</strong> {publication.authors?.join(", ")}<br>
+      <strong>Statut :</strong> {publication.status || "Corpus"}<br>
     </p>
-    <p><a href="${pub.pdf}" target="_blank">Télécharger le PDF</a></p>
-    <p><a href="/TriumPortal/">← Retour à l'accueil</a></p>
+
+    {publication.summary && (
+      <section>
+        <h2>Résumé</h2>
+        <p>{publication.summary}</p>
+      </section>
+    )}
+
+    <section>
+      <h2>Document officiel</h2>
+      <p>
+        <a href={publication.pdf} target="_blank">
+          Télécharger le PDF
+        </a>
+      </p>
+    </section>
+
+    <p>
+      <a href="/TriumPortal/">← Retour à l'accueil</a>
+    </p>
+
+    <footer>
+      &copy; Triumvirat — {new Date().getFullYear()}
+    </footer>
+
   </body>
 </html>
-  `;
-  const dir = `site/dist/publications/${pub.id}`;
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(`${dir}/index.html`, html);
-});
